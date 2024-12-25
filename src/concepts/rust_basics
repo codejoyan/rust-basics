@@ -1,0 +1,34 @@
+use std::sync::Arc;
+use std::sync::atomic::AtomicUsize;
+
+pub struct Student {
+    name: string,
+    number: f32,
+    grade: string,
+}
+
+fn main() {
+    let data1 = Arc::new(5);
+    let data2: Arc<Vec<usize>> = Arc::new(vec![1, 2, 3]);
+
+    let size: AtomicUsize = AtomicUsize::new(0);
+    size.fetch_add(10, std::sync::atomic::Ordering::Relaxed);
+    print!(size);
+    print!(size.load(std::sync::atomic::Ordering::Relaxed));
+
+    let names = vec!["Buddha", "Shankaracharya", "Gouryapada", "Abhinav Gupta", "Ramakrishna", "Jesus"];
+    let numbers = vec![98.75, 98.5, 97, 98.65, 99, 90];
+    let grades = vec!["A", "A", "B", "A", "A", "C"];
+
+    let students = names.iter()
+    .zip(numbers.iter())
+    .zip(grades.iter())
+    .map(|((name, number), grade)| Student {name, number, grade});
+
+    for student in students {
+        println!("Student {} scrored {} and got {}", student.name, student.number, student.grade);
+    }
+
+
+}
+
